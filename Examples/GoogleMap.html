@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>RequireJS image! plugin</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <div>
+            <h1>RequireJS image! plugin</h1>
+            <p>Plugin, ktorý načíta obrázok ako Image objekt alebo Base64 encoded string.</p>
+            <h2>Výstup:</h2>
+            <div id="output" style="border:1px solid #ccc; background:#f5f5f5; padding:10px 20px"></div>
+        </div>
+        <script src="./Scripts/Libs/require.js"></script>
+        <script>
+            require.config({
+                isDebug: true,
+                paths : {
+                    image : "../image"
+                }
+            });
+
+            require([
+                "image!./Images/flowers.jpg",
+                "image!./Images/nature.jpg!base64",
+                "image!http://cdn3.iconfinder.com/data/icons/aquanox/globe.png!base64"
+            ], function(flowers, nature, google){
+                var out = document.getElementById("output");
+                out.appendChild(flowers);
+
+                var img = document.createElement("img");
+                img.src = nature;
+                out.appendChild(img);
+
+                var googleImg = document.createElement("img");
+                googleImg.src = google;
+                out.appendChild(googleImg);
+            });
+        </script>
+    </body>
+</html>
