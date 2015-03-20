@@ -1,41 +1,51 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
-        <title>RequireJS image! plugin</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Google Maps Demo</title>
+        <style type="text/css">
+            html, body {
+                height: 100%;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+        </style>
     </head>
     <body>
-        <div>
-            <h1>RequireJS image! plugin</h1>
-            <p>Plugin, ktorý načíta obrázok ako Image objekt alebo Base64 encoded string.</p>
-            <h2>Výstup:</h2>
-            <div id="output" style="border:1px solid #ccc; background:#f5f5f5; padding:10px 20px"></div>
-        </div>
-        <script src="./Scripts/Libs/require.js"></script>
+        <div id="map"></div>
+        <script data-dojo-config="async: true" src="http://ajax.googleapis.com/ajax/libs/dojo/1.10.1/dojo/dojo.js"></script>
         <script>
-            require.config({
-                isDebug: true,
-                paths : {
-                    image : "../image"
-                }
+            var  baseUrl = location.pathname.replace(/\/[^/]+$/, "").replace("/Examples","");
+
+            require({
+                paths: {
+                    "async": baseUrl + "/Plugins/async"
+                },
+                packages: [{
+                    name: "Google", 
+                    location: baseUrl + "/Google/"
+                }],
             });
 
             require([
-                "image!./Images/flowers.jpg",
-                "image!./Images/nature.jpg!base64",
-                "image!http://cdn3.iconfinder.com/data/icons/aquanox/globe.png!base64"
-            ], function(flowers, nature, google){
-                var out = document.getElementById("output");
-                out.appendChild(flowers);
-
-                var img = document.createElement("img");
-                img.src = nature;
-                out.appendChild(img);
-
-                var googleImg = document.createElement("img");
-                googleImg.src = google;
-                out.appendChild(googleImg);
+                "dojo/dom",
+                "dojo/dom-style",
+                "Google/Maps"
+            ], function(dom, domStyle, GoogleMaps) {
+                var map = dom.byId("map");
+    
+                domStyle.set(map, {
+                    width: "600px", 
+                    height: "400px"
+                });
+                    
+                map = new GoogleMaps.Map(map,{
+                    zoom:16,
+                    center: new GoogleMaps.LatLng(43.81451767218152, -91.25057458877563),
+                    mapTypeId: GoogleMaps.MapTypeId.ROADMAP
+                });
             });
         </script>
     </body>
