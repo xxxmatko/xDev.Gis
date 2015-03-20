@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Google StreetView onClick Demo</title>
+        <link rel="stylesheet" href="http://js.arcgis.com/3.13/dijit/themes/claro/claro.css">
+        <link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css">    
+        <style type="text/css">
+            html, body {
+                height: 100%;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            #map {
+                width: 100%;
+                height: 100%;
+            }
+
+            .ui-loader {
+                width: 320px;
+                height: 240px;
+                text-align: center;
+                line-height: 240px;
+            }
+        </style>
+    </head>
+    <body class="claro">
+        <div id="map"></div>
+        <script data-dojo-config="async: true" src="http://js.arcgis.com/3.13/"></script>
+        <script>
+            var  baseUrl = location.pathname.replace(/\/[^/]+$/, "").replace("/Examples","");
+
+            require({
+                paths: {
+                    "async": baseUrl + "/Plugins/async"
+                },
+                packages: [{
+                    name: "Google", 
+                    location: baseUrl + "/Google/"
+                }],
+            });
+
+            require([
+                "dojo/dom-construct",
+                "Google/Maps",
+                "esri/map",
+                "esri/domUtils",
+            ], function(domConstruct, GoogleMaps, Map, domUtils) {
+                var global = (function() { return this; })();
+
+                // Create streetview service    
+                var streetViewService = new GoogleMaps.StreetViewService();
+                var streetViewNode;
+                var streetView;
+                
+                // Create esri map
+                var map = global.map = new Map("map", {
+                    center: [17.107137, 48.145892],
+                    zoom: 15,
+                    basemap: "streets"
+                });
+
+                // Default setting for the info window
+                map.infoWindow.resize(340,240)
+                domUtils.hide(map.infoWindow._maxButton);
+
+                map.on("click", map_onClick);
+                map.infoWindow.on("hide", infoWindow_onHide);
+
+                /**
+                 * Event handler for the map 'click' event.
+                 *
+                 * @param {object} e Event arguments.
+                 */
+                function map_onClick(e) {
+                    if(streetView) {
+                        streetView.setVisible(false);   
+                    }
+                    
+                    // Display info window
+                    map.infoWindow.setTitle(e.mapPoint.getLongitude() + ", " + e.mapPoint.getLatitude());
+                    map.infoWindow.setContent("<div class='ui-loader'>Loading street view ...</div>");
+                    map.infoWindow.show(e.screenPoint, map.getInfoWindowAnchor(e.screenPoint));
+
+                    // Get streetview for the point
+                    streetViewService.getPanoramaByLocation(
+                        new GoogleMaps.LatLng(e.mapPoint.getLatitude(), e.mapPoint.getLongitude()),
+                        100,
+                        streetViewService_onLocation
+                    );
+                }
+
+
+                /**
+                 * Callback for the streetview service 'getPanoramaByLocation' method.
+                 *
+                 * @param {object} data Panorama service data.
+                 * @param {string} status Status of the service call.
+                 */
+                function streetViewService_onLocation(data, status) {
+                    if (status.toUpperCase() != "OK" ) {
+                        map.infoWindow.setContent("<div class='ui-loader'>There is not any street view at this location</div>");
+                        return;
+                    } 
+
+                    if(!streetView) {
+                        // Create node for the streetView
+                        streetViewNode = domConstruct.create("div", {
+                            style: {
+                                width: "320px",
+                                height: "240px"
+                            }
+                        }); 
+
+                        // Create streetview if needed
+                        streetView = new GoogleMaps.StreetViewPanorama(streetViewNode);
+                    }
+                    
+                    map.infoWindow.setTitle(data.location.description); 
+                    map.infoWindow.setContent(streetViewNode);
+
+                    // Set the streetview to the location
+                    streetView.setPosition(data.location.latLng);
+                    streetView.setVisible(true);
+                }
+
+
+                /**
+                 * Event handler for the inforwindow 'hide' event.
+                 *
+                 * @param {object} e Event arguments.
+                 */
+                function infoWindow_onHide(e) {
+                    if(streetView) {
+                        streetView.setVisible(false);   
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
