@@ -1,6 +1,4 @@
 # GoogleMapsLayer
-
-## Popis
 Implementácia esri layer-a pre zobrazenie Google Maps ako ďalšej vrstvy v mape.
 
 ## Príklady
