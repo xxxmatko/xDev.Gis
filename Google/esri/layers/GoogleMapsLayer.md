@@ -29,9 +29,7 @@ setStyles(value)			| 				| Nastaví štýl zobrazovanej mapy.
 setAllowStreetView(value)	|				| Nastaví hodnotu, ktorá ak je ```true```, tak je povolené zapnúť Street View.
 
 ## Udalosti
-Názov				| Parametre					| Popis
-------------------- | -------------------------	| ---------------------------------------------------------------------------------------------------------------------
-maptype-changed		| ```javascript
-						{  
-							mapType: <string>  
-						}```						| sd
+Názov							| Parametre								| Popis
+------------------------------- | -------------------------------------	| -------------------------------------------------------------------------------------------------------------------
+maptype-changed					| ```{ mapType: <string> }```			| Udalosť zmeny typu mapy.
+streetview-visibility-changed	| ```{ isStreetViewVisible: <bool> }```	| Udalosť zmeny zobrazenia Street View.
