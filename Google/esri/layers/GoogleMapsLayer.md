@@ -27,3 +27,12 @@ setOpacity(value)			| 				| Nastaví prehliadnosť mapy.
 setMapType(value)			|				| Nastaví typ zobrazovanej mapy. Podporované typy sú: GoogleMapsLayer.MAP_TYPE_SATELLITE, GoogleMapsLayer.MAP_TYPE_HYBRID, GoogleMapsLayer.MAP_TYPE_ROADMAP, GoogleMapsLayer.MAP_TYPE_TERRAIN.
 setStyles(value)			| 				| Nastaví štýl zobrazovanej mapy.
 setAllowStreetView(value)	|				| Nastaví hodnotu, ktorá ak je ```true```, tak je povolené zapnúť Street View.
+
+## Udalosti
+Názov				| Parametre					| Popis
+------------------- | -------------------------	| ---------------------------------------------------------------------------------------------------------------------
+maptype-changed		| ```javascript				|
+					|	{						|
+        			|		mapType: <string>	|
+      				|	}						|
+      				| ```						|
