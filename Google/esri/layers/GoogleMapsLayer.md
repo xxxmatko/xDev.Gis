@@ -6,8 +6,7 @@ Implementácia esri layer-a pre zobrazenie Google Maps ako ďalšej vrstvy v map
 ## Príklady
 * [GoogleMapsLayer](https://github.com/xxxmatko/xDev.Gis/blob/master/Examples/GoogleMapsLayer.html)
 
-						| Popis
------------------------ | ---------------------------------------------------------------------------------------------------------------------
-GoogleMap				| Zobrazenie Google mapy pomocou modulu [Google/Maps](https://github.com/xxxmatko/xDev.Gis/blob/master/Google/Maps.js).
-GoogleMapsLayer			| Zobrazenie Google mapy ako podkladovej mapy pre esri mapu pomocou modulu [Google/esri/layers/GoogleMapsLayer](https://github.com/xxxmatko/xDev.Gis/blob/master/Google/esri/layers/GoogleMapsLayer.js).
-StreetViewOnMapClick	| Zobrazenie StreetView v maptip-e pri kliknutí do esri mapy s využitím modulu [Google/Maps](https://github.com/xxxmatko/xDev.Gis/blob/master/Google/Maps.js).
+## Konštruktor
+Názov								| Popis
+----------------------------------- | ---------------------------------------------------------------------------------------------------------------------
+new GoogleMapsLayer(url, options?)	| Vytvorí nový GoogleMapsLayer objekt.
