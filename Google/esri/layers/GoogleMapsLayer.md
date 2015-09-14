@@ -32,7 +32,7 @@ setAllowStreetView(value)	|				| Nastaví hodnotu, ktorá ak je ```true```, tak 
 Názov				| Parametre					| Popis
 ------------------- | -------------------------	| ---------------------------------------------------------------------------------------------------------------------
 maptype-changed		| ```javascript				|
-					|	{						|
-        			|		mapType: <string>	|
-      				|	}						|
+					+	{						+
+        			+		mapType: <string>	+
+      				+	}						+
       				| ```						|
