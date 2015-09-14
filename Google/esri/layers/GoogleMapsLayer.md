@@ -31,8 +31,4 @@ setAllowStreetView(value)	|				| Nastaví hodnotu, ktorá ak je ```true```, tak 
 ## Udalosti
 Názov				| Parametre					| Popis
 ------------------- | -------------------------	| ---------------------------------------------------------------------------------------------------------------------
-maptype-changed		| ```javascript				|
-					+	{						+
-        			+		mapType: <string>	+
-      				+	}						+
-      				| ```						|
+maptype-changed		| ```javascript  {  mapType: <string>  } ```						| sd
