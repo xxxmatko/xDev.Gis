@@ -18,3 +18,12 @@ allowStreetView		| bool		| Ak je ```true```, tak je povolené zapnutie street vi
 mapType				| string	| Typ zobrazovanej mapy.
 opacity				| number	| Nastavenie priehľadnosti mapy.
 styles				| object 	| Definícia štýlov pre zobrazovanú mapu.
+
+## Metódy
+Názov						| Návratový typ	| Popis
+--------------------------- | -------------	| ---------------------------------------------------------------------------------------------------------------------
+getGMap						| object		| Vráti objekt reprezentujúci inštanciu Google mapy.
+setOpacity(value)			| 				| Nastaví prehliadnosť mapy.
+setMapType(value)			|				| Nastaví typ zobrazovanej mapy. Podporované typy sú: GoogleMapsLayer.MAP_TYPE_SATELLITE, GoogleMapsLayer.MAP_TYPE_HYBRID, GoogleMapsLayer.MAP_TYPE_ROADMAP, GoogleMapsLayer.MAP_TYPE_TERRAIN.
+setStyles(value)			| 				| Nastaví štýl zobrazovanej mapy.
+setAllowStreetView(value)	|				| Nastaví hodnotu, ktorá ak je ```true```, tak je povolené zapnúť Street View.
